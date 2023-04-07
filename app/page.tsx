@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 
 import { apiKeyAtom } from "@/lib/atom";
-import { Mermaid } from "@/components/Mermaid";
+import { Mermaid } from "@/components/Mermaids";
 import { ChatInput } from "@/components/ChatInput";
 import { CodeBlock } from "@/components/CodeBlock";
 import { ChatMessage } from "@/components/ChatMessage";
