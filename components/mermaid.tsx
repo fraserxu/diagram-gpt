@@ -21,7 +21,12 @@ export function Mermaid({ chart }: MermaidProps) {
 
   useEffect(() => {
     async function drawChart() {
-      await mermaid.run();
+      if (chart !== "") {
+        if (ref.current) {
+          ref.current.removeAttribute("data-processed");
+        }
+        await mermaid.run();
+      }
     }
 
     drawChart();

@@ -1,16 +1,27 @@
-interface Props {
-  apiKey: string;
-  onChange: (apiKey: string) => void;
-}
+"use client";
 
-export const APIKeyInput: React.FC<Props> = ({ apiKey, onChange }) => {
+import { useAtom } from "jotai";
+import { type ChangeEvent } from "react";
+
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { apiKeyAtom } from "@/lib/atom";
+
+export const APIKeyInput = () => {
+  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setApiKey(e.target.value);
+
   return (
-    <input
-      className="mt-1 h-[24px] w-[280px] rounded-md border border-gray-300 px-3 py-2 text-black shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-      type="password"
-      placeholder="OpenAI API Key"
-      value={apiKey}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="api key">OpenAI API key</Label>
+      <Input
+        type="password"
+        id="api-key"
+        placeholder="OpenAI API Key"
+        value={apiKey}
+        onChange={handleChange}
+      />
+    </div>
   );
 };

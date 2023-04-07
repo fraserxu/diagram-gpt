@@ -5,6 +5,7 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
+import endent from "endent";
 
 import { type Message } from "@/types/type";
 
@@ -12,8 +13,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const systemPrompt =
-  "You are an assistant to help user build diagram with Mermaid. You only need to return the output, do not include ``` from your response.";
+const systemPrompt = endent`
+  You are an assistant to help user build diagram with Mermaid.
+  You only need to return the output Mermaid code block, do not include any descriptioin, do not include \`\`\`.
+  Code (no \`\`\`):
+  `;
 
 export const OpenAIStream = async (
   messages: Message[],
@@ -21,7 +25,6 @@ export const OpenAIStream = async (
   key: string
 ) => {
   const system = { role: "system", content: systemPrompt };
-
   const res = await fetch(`https://api.openai.com/v1/chat/completions`, {
     headers: {
       "Content-Type": "application/json",

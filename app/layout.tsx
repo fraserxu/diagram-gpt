@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata = {
   title: "DiagramGPT",
@@ -23,10 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-white font-sans text-slate-900 antialiased",
+          "min-h-screen bg-white font-sans text-slate-900 antialiased flex flex-col",
           fontSans.variable
         )}
       >
+        <SiteHeader />
         {children}
       </body>
     </html>
