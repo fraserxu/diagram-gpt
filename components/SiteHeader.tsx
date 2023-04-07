@@ -10,7 +10,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import { APIKeyInput } from "@/components/APIKeyInput";
 
 export function SiteHeader() {
