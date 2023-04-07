@@ -50,7 +50,7 @@ export default function Home() {
     const controller = new AbortController();
     const body: RequestBody = { messages: newMessages, model, apiKey };
 
-    const response = await fetch("/api/openai", {
+    const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,8 +86,8 @@ export default function Home() {
   };
 
   return (
-    <main className="container flex-1 w-full flex flex-wrapq">
-      <div className="flex border flex-col justify-between w-full md:w-1/2">
+    <main className="container flex-1 w-full flex flex-wrap">
+      <div className="flex border md:border-r-0 flex-col justify-between w-full md:w-1/2">
         <div className="">
           <div className="">
             {messages.map((message) => {
