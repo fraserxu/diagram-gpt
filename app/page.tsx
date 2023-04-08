@@ -3,28 +3,32 @@
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 
-import { apiKeyAtom } from "@/lib/atom";
+import { apiKeyAtom, modelAtom } from "@/lib/atom";
 import { Mermaid } from "@/components/Mermaids";
 import { ChatInput } from "@/components/ChatInput";
 import { CodeBlock } from "@/components/CodeBlock";
 import { ChatMessage } from "@/components/ChatMessage";
 import type { Message, RequestBody } from "@/types/type";
 import { parseCodeFromMessage } from "@/lib/utils";
+import type { OpenAIModel } from "@/types/type";
 
 export default function Home() {
   const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const [model, setModel] = useAtom(modelAtom);
   const [draftMessage, setDraftMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [draftOutputCode, setDraftOutputCode] = useState<string>("");
   const [outputCode, setOutputCode] = useState<string>("");
-  const model = "gpt-4";
-  // const model = "gpt-3.5-turbo";
 
   useEffect(() => {
     const apiKey = localStorage.getItem("apiKey");
+    const model = localStorage.getItem("model");
 
     if (apiKey) {
       setApiKey(apiKey);
+    }
+    if (model) {
+      setModel(model as OpenAIModel);
     }
   }, []);
 

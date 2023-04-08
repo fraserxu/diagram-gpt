@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { Copy, HelpCircle } from "lucide-react";
 
-import { buttonVariants } from "@/components/ui/button";
 import {
   HoverCard,
   HoverCardContent,
@@ -50,7 +49,7 @@ export const CodeBlock: React.FC<Props> = ({ code }) => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Learn more about Mermaid syntax.
+                    Learn more about Mermaid syntax.git
                   </Link>
                 </p>
               </div>
