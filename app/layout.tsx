@@ -1,5 +1,7 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
+
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -30,6 +32,8 @@ export default function RootLayout({
       >
         <SiteHeader />
         {children}
+
+        <Analytics />
       </body>
     </html>
   );
