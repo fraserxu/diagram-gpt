@@ -9,6 +9,7 @@ import { ChatInput } from "@/components/ChatInput";
 import { CodeBlock } from "@/components/CodeBlock";
 import { ChatMessage } from "@/components/ChatMessage";
 import type { Message, RequestBody } from "@/types/type";
+import { parseCodeFromMessage } from "@/lib/utils";
 
 export default function Home() {
   const [apiKey, setApiKey] = useAtom(apiKeyAtom);
@@ -17,6 +18,7 @@ export default function Home() {
   const [draftOutputCode, setDraftOutputCode] = useState<string>("");
   const [outputCode, setOutputCode] = useState<string>("");
   const model = "gpt-4";
+  // const model = "gpt-3.5-turbo";
 
   useEffect(() => {
     const apiKey = localStorage.getItem("apiKey");
@@ -82,7 +84,7 @@ export default function Home() {
       code += chunkValue;
       setDraftOutputCode((prevCode) => prevCode + chunkValue);
     }
-    setOutputCode(code);
+    setOutputCode(parseCodeFromMessage(code));
   };
 
   return (

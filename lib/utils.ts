@@ -15,7 +15,8 @@ export function cn(...inputs: ClassValue[]) {
 
 const systemPrompt = endent`
   You are an assistant to help user build diagram with Mermaid.
-  You only need to return the output Mermaid code block, do not include any descriptioin, do not include \`\`\`.
+  You only need to return the output Mermaid code block.
+  Do not include any description, do not include the \`\`\`.
   Code (no \`\`\`):
   `;
 
@@ -83,4 +84,15 @@ export const OpenAIStream = async (
   });
 
   return stream;
+};
+
+export const parseCodeFromMessage = (message: string) => {
+  const regex = /```(?:mermaid)?\s*([\s\S]*?)```/;
+  const match = message.match(regex);
+
+  if (match) {
+    return match[1];
+  } else {
+    return message;
+  }
 };
