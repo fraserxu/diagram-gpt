@@ -17,7 +17,7 @@ export function Mermaid({ chart }: MermaidProps) {
       theme: "forest",
       logLevel: 5,
     });
-  });
+  }, []);
 
   useEffect(() => {
     async function drawChart() {

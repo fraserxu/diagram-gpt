@@ -39,18 +39,21 @@ export const CodeBlock: React.FC<Props> = ({ code }) => {
           <span>mermaid</span>
           <HoverCard>
             <HoverCardTrigger>
-              <HelpCircle className="mx-2 h-4 w-4" />
+              <HelpCircle className="mx-2 h-4 w-4 cursor-pointer" />
             </HoverCardTrigger>
             <HoverCardContent>
               <div className="space-y-2">
-                <p className="text-xs text-slate-500 underline">
+                <p className="text-xs text-slate-500">
+                  Learn more about{" "}
                   <Link
                     href="https://mermaid.js.org/intro/"
                     target="_blank"
                     rel="noreferrer"
+                    className="underline"
                   >
-                    Learn more about Mermaid syntax.git
+                    Mermaid syntax
                   </Link>
+                  .
                 </p>
               </div>
             </HoverCardContent>
