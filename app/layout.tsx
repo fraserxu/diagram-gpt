@@ -8,7 +8,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata = {
   title: "DiagramGPT",
-  description: "Draw diagram with AI",
+  description:
+    "Draw flowchart, sequence diagram, class diagram, user journey, gantt, C4C diagram with nature language.",
 };
 
 const fontSans = FontSans({
