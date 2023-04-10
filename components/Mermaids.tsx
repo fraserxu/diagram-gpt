@@ -63,7 +63,7 @@ export function Mermaid({ chart }: MermaidProps) {
   };
 
   return (
-    <div className="">
+    <div className="w-full">
       <div className="absolute right-0 px-4 py-2 text-xs font-sans justify-between">
         <button className="flex ml-auto gap-2" onClick={handleCopyClick}>
           <Copy className="mr-2 h-4 w-4" />
