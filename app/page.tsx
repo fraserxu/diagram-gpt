@@ -114,7 +114,7 @@ export default function Home() {
       <div className="border w-full md:w-1/2 p-2 flex flex-col">
         <CodeBlock code={draftOutputCode} />
 
-        <div className="flex-1 flex justify-center border">
+        <div className="flex-1 flex justify-center border relative">
           <Mermaid chart={outputCode} />
         </div>
       </div>

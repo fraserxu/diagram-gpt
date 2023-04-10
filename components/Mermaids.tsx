@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import mermaid from "mermaid";
+
+import { Copy } from "lucide-react";
 
 interface MermaidProps {
   chart: string;
@@ -9,6 +11,7 @@ interface MermaidProps {
 
 export function Mermaid({ chart }: MermaidProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [label, setLabel] = useState<string>("Copy SVG");
 
   useEffect(() => {
     mermaid.mermaidAPI.initialize({
@@ -32,9 +35,44 @@ export function Mermaid({ chart }: MermaidProps) {
     drawChart();
   }, [chart]);
 
+  const copyToClipboard = (text: string) => {
+    const el = document.createElement("textarea");
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+
+  const handleCopyClick = () => {
+    const container = ref.current;
+
+    if (!container) return;
+
+    const svgElement = container.querySelector("svg");
+
+    if (svgElement) {
+      const svgCode = svgElement.outerHTML;
+      copyToClipboard(svgCode);
+      setLabel("Copied!");
+
+      setTimeout(() => {
+        setLabel("Copy SVG");
+      }, 1000);
+    }
+  };
+
   return (
-    <div ref={ref} className="mermaid">
-      {chart}
+    <div className="">
+      <div className="absolute right-0 px-4 py-2 text-xs font-sans justify-between">
+        <button className="flex ml-auto gap-2" onClick={handleCopyClick}>
+          <Copy className="mr-2 h-4 w-4" />
+          {label}
+        </button>
+      </div>
+      <div ref={ref} className="mermaid">
+        {chart}
+      </div>
     </div>
   );
 }
