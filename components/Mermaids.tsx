@@ -2,38 +2,40 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import mermaid from "mermaid";
+import { Copy, Palette } from "lucide-react";
 
-import { Copy } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type { Theme } from "@/types/type";
 
 interface MermaidProps {
   chart: string;
 }
 
+const Available_Themes: Theme[] = [
+  "default",
+  "neutral",
+  "dark",
+  "forest",
+  "base",
+];
+
 export function Mermaid({ chart }: MermaidProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState<string>("Copy SVG");
+  const [theme, setTheme] = useState<Theme | "">("");
 
   useEffect(() => {
-    mermaid.mermaidAPI.initialize({
-      startOnLoad: false,
-      securityLevel: "loose",
-      theme: "forest",
-      logLevel: 5,
-    });
-  }, []);
-
-  useEffect(() => {
-    async function drawChart() {
-      if (chart !== "") {
-        if (ref.current) {
-          ref.current.removeAttribute("data-processed");
-        }
-        await mermaid.run();
-      }
+    const theme = localStorage.getItem("theme");
+    if (theme) {
+      setTheme(theme as Theme);
     }
-
-    drawChart();
-  }, [chart]);
+  }, []);
 
   const copyToClipboard = (text: string) => {
     const el = document.createElement("textarea");
@@ -46,11 +48,9 @@ export function Mermaid({ chart }: MermaidProps) {
 
   const handleCopyClick = () => {
     const container = ref.current;
-
     if (!container) return;
 
     const svgElement = container.querySelector("svg");
-
     if (svgElement) {
       const svgCode = svgElement.outerHTML;
       copyToClipboard(svgCode);
@@ -62,15 +62,67 @@ export function Mermaid({ chart }: MermaidProps) {
     }
   };
 
+  async function drawChart(chart: string, theme: Theme | "") {
+    const container = ref.current;
+    if (chart !== "" && container && theme !== "") {
+      container.removeAttribute("data-processed");
+      mermaid.mermaidAPI.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme,
+        logLevel: 5,
+      });
+      await mermaid.run();
+    }
+  }
+
+  useEffect(() => {
+    drawChart(chart, theme);
+  }, [chart]);
+
+  const handleThemeChange = async (value: Theme) => {
+    setTheme(value);
+    localStorage.setItem("theme", value);
+
+    // rerender chart
+    const container = ref.current;
+    if (container) {
+      container.removeAttribute("data-processed");
+      mermaid.mermaidAPI.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: value,
+        logLevel: 5,
+      });
+      const { svg } = await mermaid.mermaidAPI.render("id", chart);
+      ref.current.innerHTML = svg;
+    }
+  };
+
   return (
     <div className="w-full">
-      <div className="absolute right-0 px-4 py-2 text-xs font-sans justify-between">
+      <div className="absolute right-0 px-4 py-2 text-xs font-sans flex items-center justify-center">
+        <Select value={theme} onValueChange={handleThemeChange}>
+          <SelectTrigger className="w-[180px] mr-2 h-8">
+            <Palette className="h-4 w-4" />
+            <SelectValue id="model" placeholder="Select theme" />
+          </SelectTrigger>
+          <SelectContent>
+            {Available_Themes.map((theme) => {
+              return (
+                <SelectItem key={theme} value={theme}>
+                  {theme}
+                </SelectItem>
+              );
+            })}
+          </SelectContent>
+        </Select>
         <button className="flex ml-auto gap-2" onClick={handleCopyClick}>
           <Copy className="mr-2 h-4 w-4" />
           {label}
         </button>
       </div>
-      <div ref={ref} className="mermaid flex items-center justify-center">
+      <div ref={ref} className="mermaid flex items-center justify-center mt-10">
         {chart}
       </div>
     </div>

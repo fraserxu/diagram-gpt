@@ -10,3 +10,5 @@ export interface RequestBody {
   model: OpenAIModel;
   apiKey: string;
 }
+
+export type Theme = "default" | "neutral" | "dark" | "forest" | "base";

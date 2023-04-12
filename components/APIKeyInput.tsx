@@ -22,6 +22,7 @@ export const APIKeyInput = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setApiKey(e.target.value);
+
   const handleModelChange = (value: OpenAIModel) => {
     setModel(value);
   };
