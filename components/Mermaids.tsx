@@ -125,7 +125,7 @@ export function Mermaid({ chart }: MermaidProps) {
           {label}
         </button>
       </div>
-      <div ref={ref} className="mermaid flex items-center justify-center mt-10">
+      <div ref={ref} className="mermaid flex items-center justify-center mt-12">
         {chart}
       </div>
     </div>
