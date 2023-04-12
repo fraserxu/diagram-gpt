@@ -70,7 +70,7 @@ export function Mermaid({ chart }: MermaidProps) {
           {label}
         </button>
       </div>
-      <div ref={ref} className="mermaid">
+      <div ref={ref} className="mermaid flex items-center justify-center">
         {chart}
       </div>
     </div>
