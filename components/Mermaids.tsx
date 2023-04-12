@@ -34,6 +34,9 @@ export function Mermaid({ chart }: MermaidProps) {
     const theme = localStorage.getItem("theme");
     if (theme) {
       setTheme(theme as Theme);
+    } else {
+      setTheme("default");
+      localStorage.setItem("theme", "default");
     }
   }, []);
 
