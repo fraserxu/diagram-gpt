@@ -24,16 +24,19 @@
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^1.0.0",
     "jotai": "^2.0.3",
+    "js-base64": "^3.7.5",
     "lucide-react": "^0.130.1",
     "mermaid": "^10.0.2",
     "next": "13.2.4",
     "openai": "^3.2.1",
+    "pako": "^2.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^1.11.0",
     "typescript": "5.0.3"
   },
   "devDependencies": {
+    "@types/pako": "^2.0.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1"
