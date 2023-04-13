@@ -6,6 +6,8 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 import endent from "endent";
+import { deflate } from "pako";
+import { fromUint8Array } from "js-base64";
 
 import { type Message } from "@/types/type";
 
@@ -95,4 +97,22 @@ export const parseCodeFromMessage = (message: string) => {
   } else {
     return message;
   }
+};
+
+export const serializeCode = (code: string) => {
+  const state = {
+    code: parseCodeFromMessage(code),
+    mermaid: JSON.stringify(
+      {
+        theme: "default",
+      },
+      undefined,
+      2
+    ),
+    autoSync: true,
+    updateDiagram: true,
+  };
+  const data = new TextEncoder().encode(JSON.stringify(state));
+  const compressed = deflate(data, { level: 9 });
+  return fromUint8Array(compressed, true);
 };
