@@ -101,7 +101,7 @@ export const parseCodeFromMessage = (message: string) => {
 
 export const serializeCode = (code: string) => {
   const state = {
-    code,
+    code: parseCodeFromMessage(code),
     mermaid: JSON.stringify(
       {
         theme: "default",
