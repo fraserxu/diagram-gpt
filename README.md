@@ -1,8 +1,8 @@
 # Diagram GPT
 
-Draw flowchart, sequence diagram, class diagram, user journey, gantt, C4C diagram with nature language.
+Draw flowchart, sequence diagram, class diagram, user journey, gantt, C4C diagram with natural language.
 
-![scerenshot](./app/opengraph-image.png)
+![screenshot](./app/opengraph-image.png)
 
 ## Getting Started
 
